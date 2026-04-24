@@ -1,0 +1,26 @@
+services:
+  pdv-app:
+    build: .
+    ports:
+      - "8080:8080"
+    volumes:
+      - .:/app
+    depends_on:
+      pdv-db:
+        condition: service_healthy
+    # Comando simplificado: apenas roda o que já foi compilado, sem travar no debugger
+    command: ["java", "-jar", "target/pdv-0.0.1-SNAPSHOT.war"]
+    
+  pdv-db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_ROOT_HOST: '%'
+      MYSQL_DATABASE: pdv
+    ports:
+      - "3306:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
