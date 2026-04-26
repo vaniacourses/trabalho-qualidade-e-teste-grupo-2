@@ -3,13 +3,14 @@ services:
     build: .
     ports:
       - "8080:8080"
-    volumes:
-      - .:/app
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://pdv-db:3306/pdv?allowPublicKeyRetrieval=true&useSSL=false
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: "123456"
     depends_on:
       pdv-db:
         condition: service_healthy
-    # Comando simplificado: apenas roda o que já foi compilado, sem travar no debugger
-    command: ["java", "-jar", "target/pdv-0.0.1-SNAPSHOT.war"]
+    command: ["sh", "-c", "sleep 10 && java -jar /app/pdv-0.0.1-SNAPSHOT.war"]
     
   pdv-db:
     image: mysql:8.0
