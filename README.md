@@ -1,5 +1,12 @@
-# pdv
+# Código fonte para testes do projeto PDV
 Sistema de ERP web desenvolvido em Java com Spring Framework 
+
+Alunos:
+- Lucas Sodré
+- Italo Ferreira
+- Nicholas Lima
+- Filipe dos Santos
+- Caio Felipe
 
 # Recursos
 - Cadastro produtos/clientes/fornecedor
@@ -13,11 +20,14 @@ Sistema de ERP web desenvolvido em Java com Spring Framework
 - Cadastrar novas formas de pagamentos
 - Relatórios
 
-# Instalação
-Para instalar o sistema, você deve criar o banco de dado "pdv" no mysql e configurar o arquivo application.properties
-com os dados do seu usuário root do mysql e rodar o projeto pelo Eclipse ou gerar o jar do mesmo e execultar.
+# Setup
+- Clone o projeto em uma pasta vazia
+- Instale Maven no seu computador
+- Com o VScode (ou algum terminal similar aberto), rode ``mvn clean package -DskipTests``
+- Então, rode o comando ``docker compose up -d`` ou rode o arquivo ``docker-compose.yml``, na pasta raíz
+- Finalmente, rode ``mvn test``
 
-# Logando no sistema
+# Login administrador
 Para logar no sistema, use o usuário "gerente" e a senha "123".
 
 # Tecnologias utilizadas
@@ -26,10 +36,5 @@ Para logar no sistema, use o usuário "gerente" e a senha "123".
 - MySQL
 - Hibernate
 - FlyWay
-
-# Execução com Docker
-Para executar a aplicação utilizando o docker, utilize o seguinte comando na raiz do projeto:
-```sh
-docker compose up -d
-```
+- Docker
 
