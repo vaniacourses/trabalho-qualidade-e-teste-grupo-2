@@ -1,10 +1,9 @@
-# Código fonte para testes do projeto PDV
-Sistema de ERP web desenvolvido em Java com Spring Framework 
+# Trabalho Qualidade e Teste - Grupo 2
+Sistema de ERP web desenvolvido em Java com Spring Framework com testes automatizados
 
-Alunos:
+## Alunos:
 - Lucas Sodré
 - Italo Ferreira
-- Nicholas Lima
 - Filipe dos Santos
 - Caio Felipe
 
@@ -23,9 +22,15 @@ Alunos:
 # Setup
 - Clone o projeto em uma pasta vazia
 - Instale Maven no seu computador
-- Com o VScode (ou algum terminal similar aberto), rode ``mvn clean package -DskipTests``
-- Então, rode o comando ``docker compose up -d`` ou rode o arquivo ``docker-compose.yml``, na pasta raíz
-- Finalmente, rode ``mvn test``
+- Instale Java JDK8 (Pode ser a versão Temurin JDK 8) e adicione ao seu JAVA_HOME 
+- Com o VScode (ou algum terminal similar aberto), rode os seguintes comandos em sequência em um terminal:
+    - ``docker-compose down``
+    - ``mvn clean``
+    - ``export MAVEN_OPTS="-Xmx512m -XX:MaxPermSize=256m"``
+    - ``mvn clean package -DskipTests``
+    - ``docker-compose up --build`` (Aguarde até o app pdv iniciar)
+- Abra um terminal adicional e rode:
+    - ``mvn test -DforkCount=0``
 
 # Login administrador
 Para logar no sistema, use o usuário "gerente" e a senha "123".
@@ -37,4 +42,3 @@ Para logar no sistema, use o usuário "gerente" e a senha "123".
 - Hibernate
 - FlyWay
 - Docker
-
