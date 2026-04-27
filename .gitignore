@@ -23,8 +23,8 @@
 hs_err_pid*
 /target/
 
-#created files
-target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst
-target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst
-target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst
-target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst
+# created files
+.target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst
+.target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst
+.target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst
+.target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst
