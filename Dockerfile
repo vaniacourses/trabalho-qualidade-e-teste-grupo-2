@@ -1,7 +1,5 @@
-FROM eclipse-temurin:8-jdk
-
-RUN apt-get update && apt-get install -y maven
-
+FROM amazoncorretto:8-alpine
 WORKDIR /app
-
-COPY target/pdv-0.0.1-SNAPSHOT.war .
+COPY target/pdv-0.0.1-SNAPSHOT.war app.war
+EXPOSE 8080
+ENTRYPOINT ["java", "-jar", "app.war"]
