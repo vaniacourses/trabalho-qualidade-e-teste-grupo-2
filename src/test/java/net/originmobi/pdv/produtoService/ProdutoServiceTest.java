@@ -1,4 +1,4 @@
-package net.originmobi.pdv;
+package net.originmobi.pdv.produtoService;
 
 import org.junit.Assert;
 import org.junit.Before;
