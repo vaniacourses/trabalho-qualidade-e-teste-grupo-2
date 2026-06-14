@@ -71,7 +71,7 @@ public class ProdutoService {
 
 				return "Produto atualizado com sucesso";
 			} catch (Exception e) {
-				e.printStackTrace();
+				System.out.println(e.getMessage());
 				return "Erro a atualizar produto, chame o suporte";
 			}
 
