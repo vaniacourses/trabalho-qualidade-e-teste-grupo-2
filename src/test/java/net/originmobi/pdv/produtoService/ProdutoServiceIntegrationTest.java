@@ -28,7 +28,7 @@ import java.util.List;
  * (preferencialmente um banco de dados em memória como H2 definido no seu application-test.properties).
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@SpringBootTest(classes = net.originmobi.pdv.PdvApplication.class)
 @ActiveProfiles("test") // Usa application-test.properties com H2 em memória ao invés de MySQL
 @Transactional // Dá rollback no banco após CADA método de teste, mantendo o ambiente limpo
 public class ProdutoServiceIntegrationTest {
@@ -109,12 +109,12 @@ public class ProdutoServiceIntegrationTest {
     public void testMergerMultiplasInsercoesViaService() {
         // 1. Cenário & Ação: Cadastrando dois produtos distintos usando a lógica do método merger (codprod = 0)
         String retorno1 = produtoService.merger(0L, 1L, 1L, 1L, 0, "Monitor UltraWide 29",
-                400.0, 1200.0, new java.util.Date(), "SIM", "ATIVO", "UN",
+                400.0, 1200.0, new java.sql.Date(System.currentTimeMillis()), "SIM", "ATIVO", "UN",
                 net.originmobi.pdv.enumerado.produto.ProdutoSubstTributaria.NAO, "12345678", "1234567",
                 1L, 1L, "SIM");
 
         String retorno2 = produtoService.merger(0L, 1L, 1L, 1L, 0, "Mouse sem Fio XYZ",
-                30.0, 90.0, new java.util.Date(), "SIM", "ATIVO", "UN",
+                30.0, 90.0, new java.sql.Date(System.currentTimeMillis()), "SIM", "ATIVO", "UN",
                 net.originmobi.pdv.enumerado.produto.ProdutoSubstTributaria.NAO, "12345678", "1234567",
                 1L, 1L, "SIM");
 

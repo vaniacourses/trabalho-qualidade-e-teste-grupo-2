@@ -32,8 +32,7 @@ public class GrupoUsuario implements Serializable {
 	@Size(min = 4, max = 45, message = "Tamanho minio de quatro caracteres")
 	private String descricao;
 
-	@ManyToMany(cascade = CascadeType.MERGE)
-	@JoinTable(name = "usuario_grupousuario")
+	@ManyToMany(mappedBy = "grupousuario", cascade = CascadeType.MERGE)
 	private List<Usuario> usuario;
 
 	@ManyToMany

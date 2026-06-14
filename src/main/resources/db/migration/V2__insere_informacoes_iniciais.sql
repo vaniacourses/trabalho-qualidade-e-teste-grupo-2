@@ -1,7 +1,7 @@
-#INSERE PAISES
+-- INSERE PAISES
 insert into pais (nome, pais_codigo) values ('Brasil', '1058');
 
-#INSERE ESTADO
+-- INSERE ESTADO
 insert into estado (codigo, codigoUF, nome, sigla, pais_codigo) values (1, '11', 'Rondônia','RO', 1);
 insert into estado (codigo, codigoUF, nome, sigla, pais_codigo) values (2, '12', 'Acre', 'AC', 1);
 insert into estado (codigo, codigoUF, nome, sigla, pais_codigo) values (3, '13', 'Amazonas', 'AM', 1);
@@ -217,6 +217,10 @@ insert into permissoes_grupo_usuario (grupo_usuario_codigo, permissoes_codigo) v
 
 #VINCULA USUARIO A DETERMINADA PERMISSÃO
 #insert into usuario_permissoes (usuario_codigo, permissoes_codigo) values (1, );
+
+#INSERE TRIBUTACAO PADRÃO E REGRA
+insert into tributacao (codigo, descricao) values (1, 'Tributação Padrão');
+insert into regra_tributacao (codigo, tributacao_codigo) values (1, 1);
 
 #INSERE TIPOS DE REGIMES TRIBUTARIOS
 insert into regime_tributario (descricao, tipo_regime) values ('Simples Nacional', 1), ('Regime Normal', 2);
@@ -909,4 +913,3 @@ INSERT INTO `cfop` (`cfop`, `descricao`, `aplicacao`) VALUES
 ('7900',	'OUTRAS SAIDAS DE MERCADORIA OU PRESTAÇÕES DE SERVIÇOS',	NULL),
 ('7930',	'Lançamento efetuado a título de devolução de bem cuja entrada tenha ocorrido sob amparo de regime especial aduaneiro de admissão temporária',	'Classificam-se neste código os lançamentos efetuados a título de saída em devolução de bens cuja entrada tenha ocorrido sob amparo de regime especial aduaneiro de admissão temporária.'),
 ('7949', 'Outra saída de mercadoria ou prestação de serviço não especificado', 'Classificam-se neste código as outras saídas de mercadorias ou prestações de serviços que não tenham sido especificados nos códigos anteriores.');
-
