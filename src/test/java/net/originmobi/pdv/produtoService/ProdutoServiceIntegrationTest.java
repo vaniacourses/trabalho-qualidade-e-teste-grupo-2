@@ -1,18 +1,19 @@
 package net.originmobi.pdv.produtoService;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import net.originmobi.pdv.filter.ProdutoFilter;
-
 
 import net.originmobi.pdv.enumerado.produto.ProdutoControleEstoque;
 import net.originmobi.pdv.model.Produto;
@@ -25,7 +26,7 @@ import java.util.List;
 /**
  * Testes de INTEGRAÇÃO para ProdutoService.
  * Requer o carregamento do contexto do Spring e acesso a um banco de dados
- * (preferencialmente um banco de dados em memória como H2 definido no seu application-test.properties).
+ * em memória (H2) definido no seu application-test.properties.
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = net.originmobi.pdv.PdvApplication.class)
@@ -33,12 +34,44 @@ import java.util.List;
 @Transactional // Dá rollback no banco após CADA método de teste, mantendo o ambiente limpo
 public class ProdutoServiceIntegrationTest {
 
-    // Aqui NÃO usamos Mockito. Pedimos para o Spring injetar os Beans reais.
     @Autowired
     private ProdutoService produtoService;
 
     @Autowired
     private ProdutoRepository produtoRepository;
+
+    // Injeção do JdbcTemplate para executar comandos SQL nativos e preparar o cenário de teste
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+
+    @Before
+    public void setUp() {
+        // Solução 1: Inserção programática da árvore de dependências para satisfazer as FKs de Produto.
+        // Como a classe usa @Transactional, todos esses inserts sofrem rollback automaticamente após cada teste.
+        
+        // 1. Cadeia de chaves estrangeiras para o Fornecedor (ID: 1)
+        jdbcTemplate.execute("INSERT INTO pais (codigo, nome, pais_codigo) VALUES (1, 'Brasil', '1058')");
+        jdbcTemplate.execute("INSERT INTO estado (codigo, codigoUF, nome, sigla, pais_codigo) VALUES (1, '11', 'Rondônia', 'RO', 1)");
+        jdbcTemplate.execute("INSERT INTO cidade (codigo, nome, estado_codigo, codigo_municipio) VALUES (2, 'Seringueiras', 1, '1101500')");
+        jdbcTemplate.execute("INSERT INTO endereco (codigo, rua, bairro, numero, cep, referencia, data_cadastro, cidade_codigo) " +
+                             "VALUES (2, 'av: integração nacional', 'Centro', '725', '75934000', 'O Sorvetão', CURRENT_DATE(), 2)");
+        jdbcTemplate.execute("INSERT INTO fornecedor (codigo, nome_fantasia, nome, cnpj, inscricao_estadual, ativo, endereco_codigo, observacao, data_cadastro) " +
+                             "VALUES (1, 'Fornecedor Padrão', 'Fornecedor Padrão', '11915857000158', '', 1, 2, 'Fornecedor padrão do sistema', CURRENT_DATE())");
+
+        // 2. Grupo (ID: 1) e Categoria (ID: 1)
+        jdbcTemplate.execute("INSERT INTO grupo (codigo, descricao, data_cadastro) VALUES (1, 'Padrão', CURRENT_DATE())");
+        jdbcTemplate.execute("INSERT INTO categoria (codigo, descricao, data_cadastro) VALUES (1, 'Padrão', CURRENT_DATE())");
+
+        // 3. Cadeia de chaves estrangeiras para a Tributação (ID: 1)
+        jdbcTemplate.execute("INSERT INTO regime_tributario (codigo, descricao, tipo_regime) VALUES (1, 'Simples Nacional', 1)");
+        jdbcTemplate.execute("INSERT INTO empresa (codigo, nome, nome_fantasia, cnpj, ie, regime_tributario_codigo, endereco_codigo) " +
+                             "VALUES (1, 'Empresa Teste', 'Empresa Teste', '00000000000000', '', 1, 2)");
+        jdbcTemplate.execute("INSERT INTO tributacao (codigo, descricao, subs_tributaria, data_cadastro, empresa_codigo) " +
+                             "VALUES (1, 'Tributação Padrão', 0, CURRENT_DATE(), 1)");
+
+        // 4. Modalidade Base de Cálculo ICMS (ID: 1)
+        jdbcTemplate.execute("INSERT INTO mod_bc_icms (codigo, tipo, descricao, sub_tributaria) VALUES (1, 0, 'Margem Valor Agregado (%)', 0)");
+    }
 
     @Test
     public void testSalvarEBuscarProdutoReal() {
@@ -59,7 +92,7 @@ public class ProdutoServiceIntegrationTest {
                             produtoBuscado.get().getDescricao());
     }
 
-@Test
+    @Test
     public void testFiltrarEBuscarComMultiplasInsercoesPaginadas() {
         // 1. Cenário: Inserindo 5 cadeiras e 1 mesa no banco de dados real
         for (int i = 1; i <= 5; i++) {
@@ -108,6 +141,7 @@ public class ProdutoServiceIntegrationTest {
     @Test
     public void testMergerMultiplasInsercoesViaService() {
         // 1. Cenário & Ação: Cadastrando dois produtos distintos usando a lógica do método merger (codprod = 0)
+        // Agora os parâmetros '1L' passados nas chaves estrangeiras referenciam os IDs criados no método setUp()
         String retorno1 = produtoService.merger(0L, 1L, 1L, 1L, 0, "Monitor UltraWide 29",
                 400.0, 1200.0, new java.sql.Date(System.currentTimeMillis()), "SIM", "ATIVO", "UN",
                 net.originmobi.pdv.enumerado.produto.ProdutoSubstTributaria.NAO, "12345678", "1234567",
