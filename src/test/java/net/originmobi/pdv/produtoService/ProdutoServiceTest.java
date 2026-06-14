@@ -7,13 +7,17 @@ import org.springframework.test.util.ReflectionTestUtils;
 
 import net.originmobi.pdv.enumerado.produto.ProdutoControleEstoque;
 import net.originmobi.pdv.enumerado.produto.ProdutoSubstTributaria;
+import net.originmobi.pdv.filter.ProdutoFilter;
 import net.originmobi.pdv.model.Produto;
 import net.originmobi.pdv.repository.ProdutoRepository;
 import net.originmobi.pdv.service.ProdutoService;
 import net.originmobi.pdv.service.VendaProdutoService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
@@ -173,5 +177,85 @@ public class ProdutoServiceTest {
 		when(produtoRepository.saldoEstoque(1L)).thenReturn(3);
 
 		produtoService.movimentaEstoque(11L, net.originmobi.pdv.enumerado.EntradaSaida.SAIDA);
+	}
+
+	@Test
+	public void testListaProdutosVendaveis() {
+		when(produtoRepository.produtosVendaveis()).thenReturn(listaProdutos);
+
+		List<Produto> resultado = produtoService.listaProdutosVendaveis();
+
+		Assert.assertNotNull(resultado);
+		Assert.assertEquals(1, resultado.size());
+		verify(produtoRepository, times(1)).produtosVendaveis();
+		System.out.println("✓ Teste de listar produtos vendáveis passou.");
+	}
+
+	@Test
+	public void testBusca() {
+		when(produtoRepository.findByCodigoIn(1L)).thenReturn(produto);
+
+		Produto resultado = produtoService.busca(1L);
+
+		Assert.assertNotNull(resultado);
+		Assert.assertEquals(Long.valueOf(1L), resultado.getCodigo());
+		verify(produtoRepository, times(1)).findByCodigoIn(1L);
+		System.out.println("✓ Teste de buscar por código IN passou.");
+	}
+
+	@Test
+	public void testBuscaProduto() {
+		when(produtoRepository.findById(1L)).thenReturn(Optional.of(produto));
+
+		Optional<Produto> resultado = produtoService.buscaProduto(1L);
+
+		Assert.assertTrue(resultado.isPresent());
+		Assert.assertEquals("Produto Teste", resultado.get().getDescricao());
+		verify(produtoRepository, times(1)).findById(1L);
+		System.out.println("✓ Teste de buscar por ID passou.");
+	}
+
+	@Test
+	public void testFilter() {
+		ProdutoFilter filter = new ProdutoFilter();
+		filter.setDescricao("Teste");
+		Pageable pageable = mock(Pageable.class);
+		Page<Produto> pageMock = mock(Page.class);
+		
+		when(produtoRepository.findByDescricaoContaining("Teste", pageable)).thenReturn(pageMock);
+
+		Page<Produto> resultado = produtoService.filter(filter, pageable);
+
+		Assert.assertNotNull(resultado);
+		verify(produtoRepository, times(1)).findByDescricaoContaining("Teste", pageable);
+		System.out.println("✓ Teste de filtro passou.");
+	}
+
+	@Test
+	public void testMovimentaEstoqueProdutoNaoControlaEstoque() {
+		// Simula que o produto NÃO controla estoque
+		produto.setControla_estoque(ProdutoControleEstoque.NAO);
+		List<Object[]> listaProdutosVenda = new ArrayList<>();
+		listaProdutosVenda.add(new Object[] {1L, 2});
+
+		when(vendaProdutoService.buscaQtdProduto(10L)).thenReturn(listaProdutosVenda);
+		when(produtoRepository.findByCodigoIn(1L)).thenReturn(produto);
+
+		produtoService.movimentaEstoque(10L, net.originmobi.pdv.enumerado.EntradaSaida.SAIDA);
+
+		// Garante que o método do repositório NUNCA seja chamado
+		verify(produtoRepository, never()).movimentaEstoque(anyLong(), anyString(), anyInt(), anyString(), any(java.sql.Date.class));
+		System.out.println("✓ Teste de movimentação ignorada (não controla estoque) passou.");
+	}
+
+	@Test
+	public void testAjusteEstoqueSucesso() {
+		when(produtoRepository.findByCodigoIn(1L)).thenReturn(produto); // produto.controlaEstoque é SIM
+		java.sql.Date dataAtual = new java.sql.Date(System.currentTimeMillis());
+
+		produtoService.ajusteEstoque(1L, 10, net.originmobi.pdv.enumerado.EntradaSaida.ENTRADA, "Ajuste manual", dataAtual);
+
+		verify(produtoRepository, times(1)).movimentaEstoque(eq(1L), eq("ENTRADA"), eq(10), eq("Ajuste manual"), eq(dataAtual));
+		System.out.println("✓ Teste de ajuste de estoque com sucesso passou.");
 	}
 }
