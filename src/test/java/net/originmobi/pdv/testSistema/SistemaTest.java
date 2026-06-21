@@ -44,9 +44,13 @@ public class SistemaTest {
     @ParameterizedTest
     @CsvSource({
             "Boneco, 10.00, 15.00, UN, 2023-01-01",
-            "Carrinho de Bebê, 50.00, 75.00, UN, 2023-01-02"
+            "Carrinho de Bebê, 50.00, 75.00, UN, 2023-01-02",
+            "Boneca, 20.00, 30.00, UN, 2024-01-01",
+            "Livro de Receitas, 35.50, 50.00, UN, 2024-02-15",
+            "Jogo de Tabuleiro, 40.00, 60.00, UN, 2024-03-20"
     })
     public void CadastrarProdutoComIsencao(String Descricao, String custo, String venda, String unidade, String validade) {
+        // Caso de Teste 00111-13: Cadastrar Produto Com isenção 
         PaginaLogin paginaLogin = new PaginaLogin(driver, wait);
         paginaLogin.FazerLogin("gerente", "123");
 
