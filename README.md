@@ -29,8 +29,6 @@ Sistema de ERP web desenvolvido em Java com Spring Framework com testes automati
     - ``export MAVEN_OPTS="-Xmx512m -XX:MaxPermSize=256m"`` (Se não rodar, passe pro próximo)
     - ``mvn clean package -DskipTests``
     - ``docker-compose up --build`` (Aguarde até o app pdv iniciar)
-- Abra um terminal adicional e rode:
-
 
 # Rodar pós setup
 - Testes unitarios - precisa dar build complete para rodar os testes a seguir.
@@ -64,9 +62,13 @@ O projeto "trabalho-pdv-grupo2" aparecerá na tela inicial! Ao clicar nele, voc�
 - ``docker-compose down``
 - ``mvn clean``
 
-
 # Login administrador
 Para logar no sistema, use o usuário "gerente" e a senha "123".
+
+# Documentação Parte 2:
+- https://docs.google.com/document/d/1GIsWkybFBkqLIT_LlNzR8wJkHdtf1JuMPON0Eyyf6BE/edit?usp=sharing
+
+
 
 # Tecnologias utilizadas
 - Spring Framework 5
