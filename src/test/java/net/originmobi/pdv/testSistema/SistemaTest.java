@@ -50,7 +50,7 @@ public class SistemaTest {
             "Jogo de Tabuleiro, 40.00, 60.00, UN, 2024-03-20"
     })
     public void CadastrarProdutoComIsencao(String Descricao, String custo, String venda, String unidade, String validade) {
-        // Caso de Teste 00111-13: Cadastrar Produto Com isenção 
+        // RF03: Cadastrar produto
         PaginaLogin paginaLogin = new PaginaLogin(driver, wait);
         paginaLogin.FazerLogin("gerente", "123");
 
