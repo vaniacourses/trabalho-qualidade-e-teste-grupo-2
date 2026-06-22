@@ -5,7 +5,6 @@ Sistema de ERP web desenvolvido em Java com Spring Framework com testes automati
 - Lucas Sodré
 - Italo Ferreira
 - Filipe dos Santos
-- Caio Felipe
 
 # Recursos
 - Cadastro produtos/clientes/fornecedor
@@ -31,8 +30,6 @@ Sistema de ERP web desenvolvido em Java com Spring Framework com testes automati
     - ``docker-compose up --build`` (Aguarde até o app pdv iniciar)
 
 # Rodar pós setup
-- Testes unitarios - precisa dar build complete para rodar os testes a seguir.
-    - ``mvn test -DforkCount=0`` 
 - Teste Estrutural JoCoCo
     - ``mvn clean test jacoco:report`` 
 - Teste de Mutação
