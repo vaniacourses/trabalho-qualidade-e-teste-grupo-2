@@ -110,19 +110,24 @@ public class CaixaController {
 
 		String retorno = "";
 
-		try {
-			Optional<Caixa> caixa = caixas.busca(codCaixa);
+	try {
+		Optional<Caixa> caixaOptional = caixas.busca(codCaixa);
+		
+		// Verifica se a caixa existe antes de extrair o valor
+		if (caixaOptional.isPresent()) {
 			Aplicacao aplicacao = Aplicacao.getInstancia();
 			Usuario usuario = usuarios.buscaUsuario(aplicacao.getUsuarioAtual());
 
 			CaixaLancamento lancamento = new CaixaLancamento(observacao, valor, TipoLancamento.SUPRIMENTO,
-					EstiloLancamento.ENTRADA, caixa.get(), usuario);
+					EstiloLancamento.ENTRADA, caixaOptional.get(), usuario);
 
 			retorno = lancamentos.lancamento(lancamento);
-		} catch (Exception e) {
-			e.getStackTrace();
+		} else {
+			retorno = "Erro: Caixa não encontrada.";
 		}
-
+	} catch(Exception e) {
+		LOGGER.log("context", e);
+	}
 		return retorno;
 	}
 
@@ -135,15 +140,21 @@ public class CaixaController {
 		String retorno = "";
 
 		try {
-			Optional<Caixa> caixa = caixas.busca(codCaixa);
-			Aplicacao aplicacao = Aplicacao.getInstancia();
-			Usuario usuario = usuarios.buscaUsuario(aplicacao.getUsuarioAtual());
+			Optional<Caixa> caixaOptional = caixas.busca(codCaixa);
+			
+			if (caixaOptional.isPresent()) {
+				Aplicacao aplicacao = Aplicacao.getInstancia();
+				Usuario usuario = usuarios.buscaUsuario(aplicacao.getUsuarioAtual());
 
-			CaixaLancamento lancamento = new CaixaLancamento(observacao, valor, TipoLancamento.SANGRIA,
-					EstiloLancamento.SAIDA, caixa.get(), usuario);
-			retorno = lancamentos.lancamento(lancamento);
-		} catch (Exception e) {
-			e.getStackTrace();
+				CaixaLancamento lancamento = new CaixaLancamento(observacao, valor, TipoLancamento.SANGRIA,
+						EstiloLancamento.SAIDA, caixaOptional.get(), usuario);
+				
+				retorno = lancamentos.lancamento(lancamento);
+			} else {
+				retorno = "Erro: Caixa não encontrada.";
+			}
+		} catch(Exception e) {
+			LOGGER.log("context", e);
 		}
 
 		return retorno;

@@ -1,8 +1,7 @@
 package net.originmobi.pdv.testSistema;
 
-import java.util.List;
-
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.By;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,6 +11,8 @@ import org.junit.jupiter.params.provider.CsvSource;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -49,7 +50,7 @@ public class SistemaTest {
             "Livro de Receitas, 35.50, 50.00, UN, 2024-02-15",
             "Jogo de Tabuleiro, 40.00, 60.00, UN, 2024-03-20"
     })
-    public void CadastrarProdutoComIsencao(String Descricao, String custo, String venda, String unidade, String validade) {
+    public void CadastrarProduto(String Descricao, String custo, String venda, String unidade, String validade) {
         // RF03: Cadastrar produto
         PaginaLogin paginaLogin = new PaginaLogin(driver, wait);
         paginaLogin.FazerLogin("gerente", "123");
@@ -62,5 +63,18 @@ public class SistemaTest {
 
         assertTrue(paginaProduto.verificarMensagemSucesso(), "Mensagem de sucesso não foi exibida");
         assertTrue(paginaProduto.verificarProdutoNaLista(Descricao), "Produto não foi encontrado na lista");
+    }
+
+    @Test
+    public void AjustarEstoque() {
+        // RF04: Ajustar estoque
+        PaginaLogin paginaLogin = new PaginaLogin(driver, wait);
+        paginaLogin.FazerLogin("gerente", "123");
+
+        PaginaPrincipal paginaPrincipal = new PaginaPrincipal(driver, wait);
+        paginaPrincipal.clicarBotaoProdutosAjusteEstoque();
+
+        PaginaProduto paginaProduto = new PaginaProduto(driver, wait);
+        assertTrue(paginaProduto.AdicionarNovoAjusteEstoque("AjusteTeste"), "Falha ao adicionar novo ajuste de estoque");
     }
 }

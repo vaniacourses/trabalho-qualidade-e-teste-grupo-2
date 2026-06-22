@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
 import net.originmobi.pdv.enumerado.Ativo;
 import net.originmobi.pdv.enumerado.produto.ProdutoBalanca;
@@ -164,6 +165,15 @@ public class ProdutoController {
 		mv.addObject("produto", produto);
 		mv.addObject("imagem", imagens.busca(produto.getCodigo()));
 		return mv;
+	}
+
+	@GetMapping("/limpar-filtro")
+	public String limparFiltro(SessionStatus status) {
+		// Isso sinaliza ao Spring que a sessão referente aos @SessionAttributes foi concluída
+		status.setComplete();
+		
+		// Redireciona de volta para a lista após limpar
+		return "redirect:/produto";
 	}
 
 	@ModelAttribute("ativo")

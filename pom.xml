@@ -209,10 +209,10 @@
 				<version>1.11.1</version>
 				<configuration>
 					<targetClasses>
-						<param>net.originmobi.pdv.controller.ProdutoController</param>
+						<param>net.originmobi.pdv.*</param>
 					</targetClasses>
 					<targetTests>
-						<param>net.originmobi.pdv.produtoService.ProdutoControllerFuncionalTest</param>
+						<param>net.originmobi.pdv.*</param>
 					</targetTests>
 				</configuration>
 			</plugin>

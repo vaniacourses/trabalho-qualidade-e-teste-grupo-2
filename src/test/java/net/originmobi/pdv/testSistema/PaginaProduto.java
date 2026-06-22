@@ -1,5 +1,6 @@
 package net.originmobi.pdv.testSistema;
 
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -62,6 +63,39 @@ public class PaginaProduto {
         } catch (Exception e) {
             return false;
         }
+    }
+
+    public boolean AdicionarNovoAjusteEstoque(String descricao){
+        try{
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.linkText("Novo"))).click();
+
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[id='obs']"))).sendKeys(descricao);
+
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("button[data-id='codigoProduto']"))).click();
+
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("a[data-normalized-text='<span class=\"text\">COD: 1 - Picole - Total Estoque: 0</span>']"))).click();
+
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.linkText("Inserir"))).click();
+
+            wait.until(ExpectedConditions.alertIsPresent());
+            Alert alert = wait.until(ExpectedConditions.alertIsPresent());
+            alert.sendKeys("1");
+            alert.accept();
+
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.linkText("Processar"))).click();
+
+            wait.until(ExpectedConditions.alertIsPresent());
+            Alert alert2 = driver.switchTo().alert();
+            alert2.accept();
+
+            wait.until(ExpectedConditions.alertIsPresent());
+            Alert alert3 = driver.switchTo().alert();
+            alert3.accept();
+            return true;
+        } catch (Exception e){
+            return false;
+        }
+        
     }
     
 }

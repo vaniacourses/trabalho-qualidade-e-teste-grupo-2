@@ -43,6 +43,11 @@ public class PaginaPrincipal {
         actions.moveToElement(driver.findElement(botaoProdutosProduto)).click().perform();
     }
 
-
+    public void clicarBotaoProdutosAjusteEstoque() {
+        Actions actions = new Actions(driver);
+        actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(botaoProdutosAbrir))).click().perform();
+        wait.until(ExpectedConditions.elementToBeClickable(botaoProdutosAjusteEstoque));
+        actions.moveToElement(driver.findElement(botaoProdutosAjusteEstoque)).click().perform();
+    }
     
 }

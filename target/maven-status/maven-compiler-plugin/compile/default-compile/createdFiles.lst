@@ -129,6 +129,7 @@ net\originmobi\pdv\controller\PagamentoTipoController.class
 net\originmobi\pdv\controller\PessoaController.class
 net\originmobi\pdv\enumerado\cartao\CartaoSituacao.class
 net\originmobi\pdv\repository\UsuarioRepository.class
+net\originmobi\pdv\controller\LOGGER.class
 net\originmobi\pdv\service\EmpresaService.class
 net\originmobi\pdv\model\TributacaoRegra.class
 net\originmobi\pdv\model\CstCsosn.class
