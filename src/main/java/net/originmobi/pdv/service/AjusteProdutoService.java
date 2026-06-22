@@ -35,7 +35,7 @@ public class AjusteProdutoService {
 	public String addProduto(Long codajuste, Long codprod, int qtd_alteracao) {
 		Optional<Ajuste> ajuste = ajustes.busca(codajuste);
 
-		if (ajuste.map(Ajuste::getStatus).get().equals(AjusteStatus.PROCESSADO))
+		if (ajuste.isPresent() && ajuste.get().getStatus().equals(AjusteStatus.PROCESSADO)) 
 			throw new RuntimeException("Ajuste já esta processado");
 
 		Produto produto = produtos.busca(codprod);
@@ -49,7 +49,7 @@ public class AjusteProdutoService {
 		if (qtd_alteracao == 0)
 			throw new RuntimeException("Quantidade inválido");
 
-		if (ajuste.map(Ajuste::getStatus).get().equals(AjusteStatus.PROCESSADO))
+		if (ajuste.isPresent() && ajuste.get().getStatus().equals(AjusteStatus.PROCESSADO))
 			throw new RuntimeException("Ajuste já processado");
 
 		int novo_estoque = estoque_aqual + qtd_alteracao;
@@ -67,7 +67,7 @@ public class AjusteProdutoService {
 	public String removeProduto(Long codajuste, Long coditem) {
 		Optional<Ajuste> ajuste = ajustes.busca(codajuste);
 		
-		if(ajuste.map(Ajuste::getStatus).get().equals(AjusteStatus.PROCESSADO))
+		if(ajuste.isPresent() && ajuste.get().getStatus().equals(AjusteStatus.PROCESSADO))
 			throw new RuntimeException("Ajuste já esta processado");
 		
 		try {
