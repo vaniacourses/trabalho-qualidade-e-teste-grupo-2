@@ -208,12 +208,12 @@
 				<artifactId>pitest-maven</artifactId>
 				<version>1.11.1</version>
 				<configuration>
-					<targetClasses>
-						<param>net.originmobi.pdv.*</param>
-					</targetClasses>
-					<targetTests>
-						<param>net.originmobi.pdv.*</param>
-					</targetTests>
+				<targetClasses>
+					<param>net.originmobi.pdv.*</param>
+				</targetClasses>
+				<targetTests>
+					<param>net.originmobi.pdv.*</param>
+				</targetTests>
 				</configuration>
 			</plugin>
 		</plugins>

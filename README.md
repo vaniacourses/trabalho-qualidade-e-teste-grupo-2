@@ -85,3 +85,4 @@ O projeto "trabalho-pdv-grupo2" aparecerá na tela inicial! Ao clicar nele, voc�
 - Selenium WebDriver & WebDriverManager (Testes funcionais E2E)
 - JaCoCo (Métrica de cobertura estrutural)
 - PITest (Métrica de testes de mutação / baseados em defeitos)
+- Sonar Cube (Análise estática de código-fonte)
