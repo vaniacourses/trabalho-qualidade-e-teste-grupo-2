@@ -30,7 +30,7 @@ Sistema de ERP web desenvolvido em Java com Spring Framework com testes automati
     - ``docker-compose up --build`` (Aguarde até o app pdv iniciar)
 
 # Rodar pós setup
-- Teste Estrutural JoCoCo
+- Rodar testes Estruturais e de Sistema
     - ``mvn clean test jacoco:report`` 
 - Teste de Mutação
     - ``mvn test-compile pitest:mutationCoverage -DforkCount=0`` 
