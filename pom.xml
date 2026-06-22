@@ -55,6 +55,11 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
 			<groupId>net.bytebuddy</groupId>
 			<artifactId>byte-buddy</artifactId>
 			<version>1.11.13</version>
@@ -204,11 +209,10 @@
 				<version>1.11.1</version>
 				<configuration>
 					<targetClasses>
-						<param>net.originmobi.pdv.service.ProdutoService</param>
+						<param>net.originmobi.pdv.controller.ProdutoController</param>
 					</targetClasses>
 					<targetTests>
-						<!-- Usando um coringa (*) para incluir tanto o teste unitário quanto o de integração -->
-						<param>net.originmobi.pdv.produtoService.ProdutoService*</param>
+						<param>net.originmobi.pdv.produtoService.ProdutoControllerFuncionalTest</param>
 					</targetTests>
 				</configuration>
 			</plugin>
