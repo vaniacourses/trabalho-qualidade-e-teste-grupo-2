@@ -50,20 +50,28 @@ public class ProdutoService {
 	}
 
 	public String merger(Long codprod, Long codforne, Long codcategoria, Long codgrupo, int balanca, String descricao,
-			Double valorCusto, Double valorVenda, java.util.Date dataValidade, String controleEstoque, String situacao,
-			String unitario, ProdutoSubstTributaria subtribu, String ncm, String cest, Long tributacao, Long modbc, String vendavel) {
+		Double valorCusto, Double valorVenda, java.util.Date dataValidade, String controleEstoque, String situacao,
+		String unitario, ProdutoSubstTributaria subtribu, String ncm, String cest, Long tributacao, Long modbc, String vendavel) {
 
-		if (codprod == 0) {
+		// ==============================================================
+		// CORREÇÃO PONTUAL DE QUALIDADE (Proteção de Valor Limite)
+		// Impede que descrições vazias ou menores que 3 caracteres passem
+		// ==============================================================
+		if (descricao == null || descricao.trim().length() < 3) {
+			return "Erro a cadastrar produto, chame o suporte";
+		}
+
+		if (codprod == null || codprod == 0) {
 			try {
 				produtos.insere(codforne, codcategoria, codgrupo, balanca, descricao, valorCusto, valorVenda,
 						dataValidade, controleEstoque, situacao, unitario, subtribu.ordinal(), Date.valueOf(dataAtual),
 						ncm, cest, tributacao, modbc, vendavel);
+				return "Produdo cadastrado com sucesso";
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
 				return "Erro a cadastrar produto, chame o suporte";
 			}
 		} else {
-
 			try {
 				produtos.atualiza(codprod, codforne, codcategoria, codgrupo, balanca, descricao, valorCusto, valorVenda,
 						dataValidade, controleEstoque, situacao, unitario, subtribu.ordinal(), ncm, cest, tributacao,
@@ -74,10 +82,7 @@ public class ProdutoService {
 				System.out.println(e.getMessage());
 				return "Erro a atualizar produto, chame o suporte";
 			}
-
 		}
-
-		return "Produdo cadastrado com sucesso";
 	}
 
 	@SuppressWarnings("static-access")

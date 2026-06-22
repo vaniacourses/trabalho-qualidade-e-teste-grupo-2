@@ -77,8 +77,8 @@ public class NotaFiscalController {
 		String natureza = request.get("natureza_operacao");
 		String tipo = request.get("tipo");
 		
-		NotaFiscalTipo notaTipo = tipo.equals(NotaFiscalTipo.ENTRADA) ? NotaFiscalTipo.ENTRADA : NotaFiscalTipo.SAIDA;
-
+		NotaFiscalTipo notaTipo = NotaFiscalTipo.valueOf(tipo);
+		
 		String codigo = null;
 		codigo = notasFiscais.cadastrar(coddesti, natureza, notaTipo);
 
