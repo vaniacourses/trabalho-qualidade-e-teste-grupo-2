@@ -13,6 +13,7 @@ net\originmobi\pdv\testSistema\PaginaLogin.class
 net\originmobi\pdv\produtoService\ProdutoServiceTest.class
 net\originmobi\pdv\testSistema\SistemaTest.class
 net\originmobi\pdv\vendaService\VendaServiceUnitTest.class
+net\originmobi\pdv\pessoaService\PessoaServiceUnitTest.class
 net\originmobi\pdv\vendaService\VendaServiceUnitTest$6.class
 net\originmobi\pdv\vendaService\VendaServiceTest.class
 net\originmobi\pdv\vendaService\VendaServiceUnitTest$1.class
