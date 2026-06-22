@@ -118,6 +118,7 @@ net\originmobi\pdv\repository\CidadeRepository.class
 net\originmobi\pdv\repository\PessoaRepository.class
 net\originmobi\pdv\controller\CartaoLancamentoController.class
 net\originmobi\pdv\repository\RecebimentoRepository.class
+net\originmobi\pdv\service\VendaService$1.class
 net\originmobi\pdv\service\notafiscal\NotaFiscalService.class
 net\originmobi\pdv\service\notafiscal\FreteTipoService.class
 net\originmobi\pdv\service\PagarTipoService.class
@@ -162,6 +163,7 @@ net\originmobi\pdv\filter\ParcelaFilter.class
 net\originmobi\pdv\service\GrupoService.class
 net\originmobi\pdv\model\Caixa.class
 net\originmobi\pdv\repository\GrupoUsuarioRepository.class
+net\originmobi\pdv\service\VendaService$DadosFechamentoVenda.class
 net\originmobi\pdv\relatorios\VendaRelatorioController.class
 net\originmobi\pdv\repository\ReceberRepository.class
 net\originmobi\pdv\filter\PagarParcelaFilter.class
@@ -200,6 +202,7 @@ net\originmobi\pdv\repository\AjusteRepository.class
 net\originmobi\pdv\model\Parcela.class
 net\originmobi\pdv\repository\CstCsosnRepository.class
 net\originmobi\pdv\filter\ClienteFilter.class
+net\originmobi\pdv\service\VendaService$VendaServiceException.class
 net\originmobi\pdv\filter\AjusteFilter.class
 net\originmobi\pdv\enumerado\TelefoneTipo.class
 net\originmobi\pdv\model\FreteTipo.class

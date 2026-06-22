@@ -6,6 +6,7 @@ net\originmobi\pdv\vendaService\VendaServiceUnitTest$2.class
 net\originmobi\pdv\vendaService\VendaServiceUnitTest$3.class
 net\originmobi\pdv\testSistema\PaginaPrincipal.class
 net\originmobi\pdv\vendaService\VendaServiceUnitTest$5.class
+net\originmobi\pdv\produtoService\ProdutoControllerFuncionalTest.class
 net\originmobi\pdv\vendaService\VendaServiceUnitTest$4.class
 net\originmobi\pdv\produtoService\ProdutoServiceIntegrationTest.class
 net\originmobi\pdv\testSistema\PaginaLogin.class
