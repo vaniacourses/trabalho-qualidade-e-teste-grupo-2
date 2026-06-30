@@ -63,7 +63,7 @@ O projeto "trabalho-pdv-grupo2" aparecerá na tela inicial! Ao clicar nele, voc�
 - ``mvn clean``
 
 # Documentação Parte 2:
-- https://docs.google.com/document/d/1GIsWkybFBkqLIT_LlNzR8wJkHdtf1JuMPON0Eyyf6BE/edit?usp=sharing
+- https://docs.google.com/document/d/1SxCjdG0Cw6ogQsuAHyCwA4dKjzUnrPszU9K0n1q554M/edit?usp=sharing
 
 # Tecnologias Utilizadas
 
